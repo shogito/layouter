@@ -1,0 +1,39 @@
+doctype html
+html(lang="en",ng-app="app")
+    head
+        meta(charset="utf-8")
+        link(href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css",rel="stylesheet") 
+        
+        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js")
+        script(src="http://cdn.jsdelivr.net/angular.bootstrap/0.11.0/ui-bootstrap-tpls.min.js")
+        script(src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-animate.min.js")
+        script(src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js")
+        script(src="lib/appCtrl.js")
+        
+        link(href="css/my.css",rel="stylesheet")
+        
+        
+    body(ng-controller="appCtrl") 
+        .container
+            .row
+                .input-group
+                    span.input-group-addon Parent Box Width
+                    input.form-control(type="text",ng-model="width")
+                    span.input-group-addon Child Box Count
+                    input.form-control(type="text",ng-model="list")
+                    span.input-group-addon Listing Count
+                    input.form-control(ng-model="list",type="text")
+                    span.input-group-btn
+                        input.btn.btn-primary(type="button",value="Calc!!",ng-click="rsl = layoutGen(width, cbn, list)")
+    
+        .container
+            div(ng-repeat="layout in rsl")
+                .show
+                    h5 ParentWidth:
+                        <h crass="rsl">{{width}}</h>px, Child Width:<h class="rsl">{{layout.childWidth}}</h>px, ChildMargin:<h class="rsl">{{layout.margin}}px
+                        
+                    div(ng-style="{'width': width+'px', 'height':'60px', 'margin':'0px 0px 45px 0px'}")
+                        div(ng-repeat="i in _.range(cbn)",ng-style="{true:{'width':layout.childWidth+'px', 'height':'60px'},false:{'margin-left':layout.margin +'px', 'width':layout.childWidth+'px', 'height':'60px'}}[$first]")
+                            p.cw
+                                <h>{{layout.childWidth}}</h>px
+                                

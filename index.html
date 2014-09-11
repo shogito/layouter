@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/angular.bootstrap/0.11.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-animate.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="lib/appCtrl.js"></script>
+    <link href="css/my.css" rel="stylesheet" />
+  </head>
+  <body ng-controller="appCtrl">
+      <div class="container">
+        <div class="row">
+          <div class="input-group">
+            <span class="input-group-addon">Parent Box Width</span>
+            <input type="text" ng-model="width" class="form-control"></input>
+            <span class="input-group-addon">Child Box Count</span>
+            <input type="text" ng-model="cbn" class="form-control"></input>
+            <span class="input-group-addon">Listing Count</span>
+            <input type="text" ng-model="list" class="form-control"></input>
+            <span class="input-group-btn">
+              <input type="button" value="Calc!!" ng-click="rsl = layoutGen(width, cbn, list)" class="btn btn-primary" />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+            <div><h3>{{rsl.length}}件を表示中</h3></div>
+        <div ng-repeat="layout in rsl">
+          <div class="show">
+            <h5>
+              Parent Width:<h class="rsl">{{width}}</h>px, 
+              Child Width:<h class="rsl">{{layout.childWidth}}</h>px, 
+              Child Margin:<h class="rsl">{{layout.margin}}</h>px
+            </h5>
+            <div ng-style="{'width': width+'px', 'height':'60px', 'margin':'0px 0px 45px 0px'}">
+              <div ng-repeat="i in _.range(cbn)" ng-style="{true:{'width':layout.childWidth+'px', 'height':'60px'},false:{'margin-left':layout.margin +'px', 'width':layout.childWidth+'px', 'height':'60px'}}[$first]">
+                <p class="cw"><h>{{layout.childWidth}}</h>px</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
